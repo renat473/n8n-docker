@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n-admin
+    restart: always
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}   
+      - N8N_HOST=
+      - N8N_EDITOR_BASE_URL=
+      - N8N_ENCRYPTION_KEY=
+      - N8N_PROTOCOL=https
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - NODE_ENV=production
+      - WEBHOOK_URL=
+    ports:
+      - "5678:5678"
+    networks: 
+      - n8n-network  
+
+networks: 
+  n8n-network:
+    name: n8n-network
+    driver: bridge   
